@@ -5,7 +5,6 @@ from aiogram.dispatcher.filters.state import StatesGroup, State
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.utils import executor
-import asyncio
 
 API_TOKEN = ''
 
@@ -26,7 +25,6 @@ class UserState(StatesGroup):
 
 @dp.message_handler(commands='start')
 async def start(message: types.Message):
-    print('Command \'start\' called')
     await message.answer("Привет! Я бот помогающий твоему здоровью.")
 
 
