@@ -8,7 +8,7 @@ from aiogram.filters import Command
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 import crud_functions
 
-API_TOKEN = '7840652373:AAGRmy1yI3ukerW1gLsUXSI_EQ54XuRR4Ko'
+API_TOKEN = ''
 
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher(storage=MemoryStorage())
