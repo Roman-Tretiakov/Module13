@@ -8,28 +8,30 @@ from aiogram.filters import Command
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 import crud_functions2
 
-API_TOKEN = ''
+API_TOKEN = '7840652373:AAGRmy1yI3ukerW1gLsUXSI_EQ54XuRR4Ko'
 
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher(storage=MemoryStorage())
 
 all_products = crud_functions2.get_all_products()
+buy_kb = InlineKeyboardBuilder()
+
+for index, product in enumerate(all_products, start=1):
+    button = InlineKeyboardButton(
+        text=product[1],
+        callback_data=f'product_buying_{index}'
+    )
+    buy_kb.add(button)
+buy_kb.adjust(4)
 
 inline_kb = InlineKeyboardBuilder()
 button_calories = InlineKeyboardButton(text='Рассчитать норму калорий', callback_data='calories')
 button_formulas = InlineKeyboardButton(text='Формулы расчёта', callback_data='formulas')
 inline_kb.row(button_calories, button_formulas)
 
-buy_kb = InlineKeyboardBuilder()
-product_1_button = InlineKeyboardButton(text='Product1', callback_data='product_buying_1')
-product_2_button = InlineKeyboardButton(text='Product2', callback_data='product_buying_2')
-product_3_button = InlineKeyboardButton(text='Product3', callback_data='product_buying_3')
-product_4_button = InlineKeyboardButton(text='Product4', callback_data='product_buying_4')
-buy_kb.row(product_1_button, product_2_button, product_3_button, product_4_button)
-
 main_kb = ReplyKeyboardMarkup(
-    keyboard=[[KeyboardButton(text='Регистрация')], [KeyboardButton(text='Рассчитать калории'), KeyboardButton(text='Информация')],
-              [KeyboardButton(text='Купить')]], resize_keyboard=True)
+    keyboard=[[KeyboardButton(text='Регистрация')], [KeyboardButton(text='Рассчитать калории'),
+                KeyboardButton(text='Информация')], [KeyboardButton(text='Купить')]], resize_keyboard=True)
 
 
 class UserState(StatesGroup):
@@ -83,25 +85,29 @@ async def get_formulas(callback: types.CallbackQuery):
 
 @dp.callback_query(F.data == 'product_buying_1')
 async def send_confirm_message_1(callback: types.CallbackQuery):
-    await callback.message.answer(f'Вы успешно приобрели Product1')
+    product_name = all_products[0][1]
+    await callback.message.answer(f'Вы успешно приобрели {product_name}')
     await callback.answer()
 
 
 @dp.callback_query(F.data == 'product_buying_2')
 async def send_confirm_message_2(callback: types.CallbackQuery):
-    await callback.message.answer(f'Вы успешно приобрели Product2')
+    product_name = all_products[1][1]
+    await callback.message.answer(f'Вы успешно приобрели {product_name}')
     await callback.answer()
 
 
 @dp.callback_query(F.data == 'product_buying_3')
 async def send_confirm_message_3(callback: types.CallbackQuery):
-    await callback.message.answer(f'Вы успешно приобрели Product3')
+    product_name = all_products[2][1]
+    await callback.message.answer(f'Вы успешно приобрели {product_name}')
     await callback.answer()
 
 
 @dp.callback_query(F.data == 'product_buying_4')
 async def send_confirm_message_4(callback: types.CallbackQuery):
-    await callback.message.answer(f'Вы успешно приобрели Product4')
+    product_name = all_products[3][1]
+    await callback.message.answer(f'Вы успешно приобрели {product_name}')
     await callback.answer()
 
 
